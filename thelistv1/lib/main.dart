@@ -1,3 +1,5 @@
+//import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -26,6 +28,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(),
+      body: CentralSection(),
       /*body: SingleChildScrollView(
         child: Column(
           children: [],
@@ -61,6 +64,24 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       backgroundColor: Colors.white,
     );
+  }
+}
+
+//section
+class CentralSection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: 200,
+        alignment: Alignment.center,
+        padding: EdgeInsets.all(20),
+        child: ElevatedButton.icon(
+          onPressed: () {
+            print("La gagne à ou la !");
+          },
+          icon: Icon(Icons.save), //icon data for elevated button
+          label: Text("Mon Frigo"), //label text
+        ));
   }
 }
 
