@@ -67,12 +67,48 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-//section
+//section boutons
 class CentralSection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: <Widget>[
+      SizedBox(height: 50),
+      SizedBox(
+        height: 200, //height of button
+        width: 500,
+        child: ElevatedButton.icon(
+          onPressed: () {
+            print("La gagne à ou la !");
+          },
+          icon: Icon(Icons.restaurant_menu), //icon data for elevated button
+          label: Text("Mon Frigo"), //label text
+        ), //width of button
+      ),
+      SizedBox(height: 50),
+      SizedBox(
+        height: 200, //height of button
+        width: 500,
+        child: ElevatedButton.icon(
+          onPressed: () {
+            print("La gagne à ou la !");
+          },
+          style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.green)),
+          icon: Icon(Icons.health_and_safety), //icon data for elevated button
+          label: Text("Ma Pharmacie"),
+          //label text
+        ), //width of button)
+      )
+    ]);
+  }
+}
+
+/*class CentralSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
         height: 200,
+        width: 500,
         alignment: Alignment.center,
         padding: EdgeInsets.all(20),
         child: ElevatedButton.icon(
@@ -83,7 +119,7 @@ class CentralSection extends StatelessWidget {
           label: Text("Mon Frigo"), //label text
         ));
   }
-}
+}*/
 
 // banderole du bas
 class BottomNavBarSection extends StatelessWidget {
