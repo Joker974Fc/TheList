@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:thelistv1/FrigPage.dart';
 
 // couleur perso
 const d_green = Color.fromARGB(255, 73, 137, 129);
@@ -78,6 +79,9 @@ class CentralSection extends StatelessWidget {
         width: 500,
         child: ElevatedButton.icon(
           onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return FrigPage();
+            }));
             print("La gagne à ou la !");
           },
           icon: Icon(Icons.restaurant_menu), //icon data for elevated button
