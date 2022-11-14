@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:thelistv1/ProductModel.dart';
+import 'package:thelistv1/MedicModel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:thelistv1/acc.dart';
+import 'package:thelistv1/main.dart';
 
-// couleur perso
-const d_green = Color.fromARGB(255, 73, 137, 129);
-
-class FrigPage extends StatelessWidget {
-  List<ProductModel> selectedProd = [];
+class PharmaPage extends StatelessWidget {
+  List<MedicModel> selectedProd = [];
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +25,14 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leading: IconButton(
         icon: Icon(
-          Icons.restaurant_menu,
+          Icons.health_and_safety,
           color: Colors.grey[800],
           size: 20,
         ),
         onPressed: null,
       ),
       title: Text(
-        'Mon Frigo',
+        'Ma Pharmacie',
         style: GoogleFonts.nunito(
           color: Colors.black,
           fontSize: 22,
@@ -50,15 +48,11 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 //listview
 class ProdView extends StatelessWidget {
   //Produits
-  List<ProductModel> produits = [
-    ProductModel("Lait", "Périme le 15/12/22", false),
-    ProductModel("Coca", "Périme le 17/11/22", false),
-    ProductModel("Lardon", "Périme le 12/12/22", false),
-    ProductModel("Kiwi", "Périme le 9/12/22", false),
-    ProductModel("Mayo", "Périme le 1/12/22", false),
-    ProductModel("Olive", "Périme le 7/12/22", false),
-    ProductModel("Jambon", "Périme le 1/1/22", false),
-    ProductModel("Arizona", "Périme le 7/2/22", false),
+  List<MedicModel> produits = [
+    MedicModel("Dafalgant", "Périme le 15/12/22", false),
+    MedicModel("Fervex", "Périme le 17/11/22", false),
+    MedicModel("Lipikar", "Périme le 12/12/22", false),
+    MedicModel("bandage", "Périme le 9/12/22", false),
   ];
 
   @override
@@ -87,9 +81,9 @@ class ProdView extends StatelessWidget {
 Widget ProdItem(String name, String description, bool isSelect, int ind) {
   return ListTile(
     leading: CircleAvatar(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.green,
       child: Icon(
-        Icons.restaurant_menu,
+        Icons.health_and_safety,
         color: Colors.white,
       ),
     ),

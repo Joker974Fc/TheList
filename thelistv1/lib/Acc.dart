@@ -1,26 +1,20 @@
-//import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:thelistv1/FrigPage.dart';
 import 'package:thelistv1/PharmaPage.dart';
 
-// couleur perso
-const d_green = Color.fromARGB(255, 73, 137, 129);
-int cindex = 0;
-
-void main() {
-  runApp(MyApp());
-}
-
-//Principal
-class MyApp extends StatelessWidget {
+class Acc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'The List',
-      home: HomePage(),
+    return Scaffold(
+      appBar: MyAppBar(),
+      body: CentralSection(),
+      /*body: SingleChildScrollView(
+        child: Column(
+          children: [],
+        ),
+      ),*/
+      bottomNavigationBar: BottomNavBarSection(),
     );
   }
 }
@@ -146,7 +140,7 @@ class BottomNavBarSection extends StatelessWidget {
           case 0:
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return PharmaPage();
-            }));
+            }))
             break;
           default:
         }*/
