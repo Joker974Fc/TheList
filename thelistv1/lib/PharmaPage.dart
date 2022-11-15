@@ -61,7 +61,9 @@ class ProdView extends StatelessWidget {
       child: Container(
         child: Column(
           children: [
-            Expanded(child: ListView.builder(
+            Expanded(
+                child: ListView.builder(
+              itemCount: produits.length,
               itemBuilder: ((context, index) {
                 return ProdItem(
                   produits[index].name,

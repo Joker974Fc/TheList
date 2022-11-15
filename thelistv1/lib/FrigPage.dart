@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:thelistv1/ProdAdd.dart';
 import 'package:thelistv1/ProductModel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:thelistv1/acc.dart';
@@ -50,6 +51,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 //listview
 class ProdView extends StatelessWidget {
   //Produits
+
   List<ProductModel> produits = [
     ProductModel("Lait", "Périme le 15/12/22", false),
     ProductModel("Coca", "Périme le 17/11/22", false),
@@ -67,7 +69,9 @@ class ProdView extends StatelessWidget {
       child: Container(
         child: Column(
           children: [
-            Expanded(child: ListView.builder(
+            Expanded(
+                child: ListView.builder(
+              itemCount: produits.length,
               itemBuilder: ((context, index) {
                 return ProdItem(
                   produits[index].name,
@@ -139,6 +143,11 @@ class BottomNavBarSection extends StatelessWidget {
           case 0:
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return Acc();
+            }));
+            break;
+          case 1:
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return ProdAdd();
             }));
             break;
           default:
