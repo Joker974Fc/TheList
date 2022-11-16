@@ -1,0 +1,113 @@
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+//import 'package:sqflite_database_example/model/prod.dart';
+
+class DbProd {
+  static final DbProd instance = DbProd._init();
+
+  static Database? _database;
+
+  DbProd._init();
+
+  Future<Database> get database async {
+    if (_database != null) return _database!;
+
+    _database = await _initDB('prods.db');
+    return _database!;
+  }
+
+  Future<Database> _initDB(String filePath) async {
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, filePath);
+
+    return await openDatabase(path, version: 1, onCreate: _createDB);
+  }
+
+  Future _createDB(Database db, int version) async {
+    final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
+    final textType = 'TEXT NOT NULL';
+    final boolType = 'BOOLEAN NOT NULL';
+    final integerType = 'INTEGER NOT NULL';
+
+    await db.execute('''
+CREATE TABLE $tableProds ( 
+  ${ProdFields.id} $idType, 
+  ${ProdFields.name} $textType,
+  ${ProdFields.description} $textType,
+  ${ProdFields.isSelected} $boolType,
+
+  )
+''');
+  }
+
+  Future<Prod> create(Prod prod) async {
+    final db = await instance.database;
+
+    // final json = Prod.toJson();
+    // final columns =
+    //     '${ProdFields.title}, ${ProdFields.description}, ${ProdFields.time}';
+    // final values =
+    //     '${json[ProdFields.title]}, ${json[ProdFields.description]}, ${json[ProdFields.time]}';
+    // final id = await db
+    //     .rawInsert('INSERT INTO table_name ($columns) VALUES ($values)');
+
+    final id = await db.insert(tableProds, Prod.toJson());
+    return prod.copy(id: id);
+  }
+
+  Future<Prod> readProd(int id) async {
+    final db = await instance.database;
+
+    final maps = await db.query(
+      tableProds,
+      columns: ProdFields.values,
+      where: '${ProdFields.id} = ?',
+      whereArgs: [id],
+    );
+
+    if (maps.isNotEmpty) {
+      return Prod.fromJson(maps.first);
+    } else {
+      throw Exception('ID $id not found');
+    }
+  }
+
+  Future<List<Prod>> readAllProds() async {
+    final db = await instance.database;
+
+    final orderBy = '${ProdFields.time} ASC';
+    // final result =
+    //     await db.rawQuery('SELECT * FROM $tableProds ORDER BY $orderBy');
+
+    final result = await db.query(tableProds, orderBy: orderBy);
+
+    return result.map((json) => Prod.fromJson(json)).toList();
+  }
+
+  Future<int> update(Prod prod) async {
+    final db = await instance.database;
+
+    return db.update(
+      tableProds,
+      prod.toJson(),
+      where: '${ProdFields.id} = ?',
+      whereArgs: [prod.id],
+    );
+  }
+
+  Future<int> delete(int id) async {
+    final db = await instance.database;
+
+    return await db.delete(
+      tableProds,
+      where: '${ProdFields.id} = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future close() async {
+    final db = await instance.database;
+
+    db.close();
+  }
+}
