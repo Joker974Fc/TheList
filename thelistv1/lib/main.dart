@@ -6,10 +6,6 @@ import 'package:thelistv1/Acc.dart';
 import 'package:thelistv1/FrigPage.dart';
 import 'package:thelistv1/PharmaPage.dart';
 
-// couleur perso
-const d_green = Color.fromARGB(255, 73, 137, 129);
-int cindex = 0;
-
 void main() {
   runApp(MyApp());
 }

@@ -61,6 +61,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
 //section Principal
 class CentralSection extends StatelessWidget {
+  //save textfield text
   TextEditingController _controller1 = TextEditingController();
   TextEditingController _controller2 = TextEditingController();
 
@@ -90,9 +91,11 @@ class CentralSection extends StatelessWidget {
       ElevatedButton.icon(
         onPressed: () {
           print(_controller1.text);
-          ProdView()
-              .produits
-              .add(ProductModel(_controller1.text, _controller2.text, false));
+          FrigPage().addlist(_controller1.text, _controller2.text, false);
+          /*FrigPage().produits.add(ProductModel(
+              name: _controller1.text,
+              description: _controller2.text,
+              isSelect: false));*/
           //refresh
           Navigator.pushAndRemoveUntil(
             context,

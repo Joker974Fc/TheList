@@ -3,6 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:thelistv1/FrigPage.dart';
 import 'package:thelistv1/PharmaPage.dart';
 
+// couleur perso
+const d_green = Color.fromARGB(255, 73, 137, 129);
+
 class Acc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

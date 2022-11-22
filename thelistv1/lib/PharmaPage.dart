@@ -4,6 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:thelistv1/acc.dart';
 import 'package:thelistv1/main.dart';
 
+// couleur perso
+const d_green = Color.fromARGB(255, 73, 137, 129);
+
 class PharmaPage extends StatelessWidget {
   List<MedicModel> selectedProd = [];
 

@@ -10,6 +10,30 @@ const d_green = Color.fromARGB(255, 73, 137, 129);
 class FrigPage extends StatelessWidget {
   List<ProductModel> selectedProd = [];
 
+  List<ProductModel> produits = [
+    ProductModel(
+        name: "Lait", description: "Périme le 15/12/22", isSelect: false),
+    ProductModel(
+        name: "Coca", description: "Périme le 17/11/22", isSelect: false),
+    ProductModel(
+        name: "Lardon", description: "Périme le 12/12/22", isSelect: false),
+    ProductModel(
+        name: "Kiwi", description: "Périme le 9/12/22", isSelect: false),
+    ProductModel(
+        name: "Mayo", description: "Périme le 1/12/22", isSelect: false),
+    ProductModel(
+        name: "Olive", description: "Périme le 7/12/22", isSelect: false),
+    ProductModel(
+        name: "Jambon", description: "Périme le 1/1/22", isSelect: false),
+    ProductModel(
+        name: "Arizona", description: "Périme le 7/2/22", isSelect: false),
+  ];
+
+  void addlist(String name, String desc, bool isSel) {
+    produits.insert(
+        0, ProductModel(name: name, description: desc, isSelect: isSel));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,17 +76,6 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 class ProdView extends StatelessWidget {
   //Produits
 
-  List<ProductModel> produits = [
-    ProductModel("Lait", "Périme le 15/12/22", false),
-    ProductModel("Coca", "Périme le 17/11/22", false),
-    ProductModel("Lardon", "Périme le 12/12/22", false),
-    ProductModel("Kiwi", "Périme le 9/12/22", false),
-    ProductModel("Mayo", "Périme le 1/12/22", false),
-    ProductModel("Olive", "Périme le 7/12/22", false),
-    ProductModel("Jambon", "Périme le 1/1/22", false),
-    ProductModel("Arizona", "Périme le 7/2/22", false),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -71,12 +84,12 @@ class ProdView extends StatelessWidget {
           children: [
             Expanded(
                 child: ListView.builder(
-              itemCount: produits.length,
+              itemCount: FrigPage().produits.length,
               itemBuilder: ((context, index) {
                 return ProdItem(
-                  produits[index].name,
-                  produits[index].description,
-                  produits[index].isSelect,
+                  FrigPage().produits[index].name,
+                  FrigPage().produits[index].description,
+                  FrigPage().produits[index].isSelect,
                   index,
                 );
               }),
@@ -149,6 +162,8 @@ class BottomNavBarSection extends StatelessWidget {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return ProdAdd();
             }));
+            break;
+          case 2:
             break;
           default:
         }
