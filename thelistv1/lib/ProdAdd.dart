@@ -83,14 +83,13 @@ class CentralSection extends StatelessWidget {
       ),
       SizedBox(height: 25),
       //descr
-      Text("Descriptions :"),
+      Text("Date de Péremption :"),
       TextField(
-        controller: _controller2,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: 'Descriptions',
-        ),
-      ),
+          controller: _controller2,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'JJ/MM/AAAA',
+          )),
       SizedBox(height: 25),
       ElevatedButton.icon(
         onPressed: () {

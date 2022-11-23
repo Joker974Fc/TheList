@@ -4,6 +4,8 @@ import 'package:thelistv1/FrigPage.dart';
 import 'package:thelistv1/PharmaPage.dart';
 import 'package:thelistv1/Vue/ProdViewDb.dart';
 
+import 'Vue/MedicViewDb.dart';
+
 // couleur perso
 const d_green = Color.fromARGB(255, 73, 137, 129);
 
@@ -96,7 +98,7 @@ class CentralSection extends StatelessWidget {
           onPressed: () {
             print("La gagne à ou la !");
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return PharmaPage();
+              return MedicViewDb();
             }));
           },
           style: ButtonStyle(

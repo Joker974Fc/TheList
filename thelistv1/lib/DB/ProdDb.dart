@@ -60,6 +60,7 @@ class DbProd {
 //AfFiche les produits
   Future<List<Prod>> prods() async {
     final Database db = await database;
+    print("MAMIA");
     final List<Map<String, dynamic>> maps = await db.query('prod');
     List<Prod> prods = List.generate(maps.length, (i) {
       return Prod.fromMap(maps[i]);
