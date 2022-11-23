@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:thelistv1/FrigPage.dart';
-import 'package:thelistv1/ProductModel.dart';
+import 'package:thelistv1/Model/Prod.dart';
+import 'package:thelistv1/DB/ProdDb.dart';
+import 'package:thelistv1/Vue/ProdViewDb.dart';
+
+const d_green = Color.fromARGB(255, 73, 137, 129);
 
 class ProdAdd extends StatelessWidget {
   @override
@@ -91,17 +95,14 @@ class CentralSection extends StatelessWidget {
       ElevatedButton.icon(
         onPressed: () {
           print(_controller1.text);
-          FrigPage().addlist(_controller1.text, _controller2.text, false);
-          /*FrigPage().produits.add(ProductModel(
-              name: _controller1.text,
-              description: _controller2.text,
-              isSelect: false));*/
+          DbProd.instance
+              .insertRecipe(Prod(_controller1.text, _controller2.text, false));
           //refresh
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    FrigPage()), // this mainpage is your page to refresh.
+                    ProdViewDB()), // this mainpage is your page to refresh.
             (Route<dynamic> route) => false,
           );
         },

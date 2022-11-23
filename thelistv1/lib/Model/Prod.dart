@@ -1,54 +1,17 @@
-final String tableProd = 'prods';
+class Prod {
+  String name;
+  String description;
+  bool isSelected;
 
-class NoteFields {
-  static final List<String> values = [
-    /// Add all fields
-    id, name, description, isSelected
-  ];
+  Prod(this.name, this.description, this.isSelected);
 
-  static final String id = '_id';
-  static final String name = 'name';
-  static final String description = 'description';
-  static final String isSelected = 'isSelected';
-}
+  Map<String, dynamic> toMap() {
+    return {'name': name, 'description': description, 'isSelected': isSelected};
+  }
 
-class Note {
-  final int? id;
-  final String name;
-  final String description;
-  final bool isSelected;
-
-  const Note({
-    this.id,
-    required this.name,
-    required this.description,
-    required this.isSelected,
-  });
-
-  Note copy({
-    int? id,
-    String? name,
-    String? description,
-    bool? isSelected,
-  }) =>
-      Note(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        description: description ?? this.description,
-        isSelected: isSelected ?? this.isSelected,
+  factory Prod.fromMap(Map<String, dynamic> map) => new Prod(
+        map['name'],
+        map['description'],
+        map['isSelected'] == 1,
       );
-
-  static Note fromJson(Map<String, Object?> json) => Note(
-        id: json[NoteFields.id] as int?,
-        name: json[NoteFields.name] as String,
-        description: json[NoteFields.description] as String,
-        isSelected: json[NoteFields.isSelected] == 0,
-      );
-
-  Map<String, Object?> toJson() => {
-        NoteFields.id: id,
-        NoteFields.name: name,
-        NoteFields.description: description,
-        NoteFields.isSelected: isSelected ? 1 : 0,
-      };
 }

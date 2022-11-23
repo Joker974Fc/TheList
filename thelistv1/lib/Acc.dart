@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:thelistv1/FrigPage.dart';
 import 'package:thelistv1/PharmaPage.dart';
+import 'package:thelistv1/Vue/ProdViewDb.dart';
 
 // couleur perso
 const d_green = Color.fromARGB(255, 73, 137, 129);
@@ -79,7 +80,7 @@ class CentralSection extends StatelessWidget {
         child: ElevatedButton.icon(
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return FrigPage();
+              return ProdViewDB();
             }));
             print("La gagne à ou la !");
           },
