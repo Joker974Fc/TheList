@@ -67,12 +67,50 @@ class ProdViews extends StatelessWidget {
                   return ListView.builder(
                     itemCount: prods?.length,
                     itemBuilder: ((context, index) {
-                      return ProdItem(
-                        prods![index].name,
-                        prods[index].description,
-                        prods[index].isSelected,
-                        index,
-                      );
+                      return Card(
+                          child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: Colors.blue,
+                          child: Icon(
+                            Icons.restaurant_menu,
+                            color: Colors.white,
+                          ),
+                        ),
+                        title: Text(
+                          prods![index].name,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        subtitle: Text(prods[index].description),
+                        trailing: prods[index].isSelected
+                            ? Icon(
+                                Icons.check_circle,
+                                color: Colors.green[700],
+                              )
+                            : Icon(
+                                Icons.check_circle_outline,
+                                color: Colors.grey,
+                              ),
+                        //lors du clique sur un item
+                        onTap: () {
+                          if (prods[index].isSelected == false) {
+                            DbProd.instance.updateRecipe(Prod(prods[index].name,
+                                prods[index].description, true));
+                          } else {
+                            DbProd.instance.updateRecipe(Prod(prods[index].name,
+                                prods[index].description, false));
+                          }
+
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ProdViewDB()), // this mainpage is your page to refresh.
+                            (Route<dynamic> route) => false,
+                          );
+                        },
+                      ));
                     }),
                   );
                 } else {
@@ -87,46 +125,6 @@ class ProdViews extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget ProdItem(String name, String description, bool isSelect, int ind) {
-  return ListTile(
-    leading: CircleAvatar(
-      backgroundColor: Colors.blue,
-      child: Icon(
-        Icons.restaurant_menu,
-        color: Colors.white,
-      ),
-    ),
-    title: Text(
-      name,
-      style: TextStyle(
-        fontWeight: FontWeight.w500,
-      ),
-    ),
-    subtitle: Text(description),
-    trailing: isSelect
-        ? Icon(
-            Icons.check_circle,
-            color: Colors.green[700],
-          )
-        : Icon(
-            Icons.check_circle_outline,
-            color: Colors.grey,
-          ),
-    /*onTap: () {
-        setState(() {
-          produits[index].isSelect = ! produits[index].isSelect;
-          if ( produits[index].isSelect == true) {
-            selected produits.add( produitsModel(name, description, true));
-          } else if ( produits[index].isSelected == false) {
-            selected produits
-                .removeWhere((element) => element.name ==  produits[index].name);
-          }
-        });
-
-  }*/
-  );
 }
 
 // banderole du bas
