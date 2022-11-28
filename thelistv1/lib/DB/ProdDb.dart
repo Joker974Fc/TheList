@@ -57,6 +57,12 @@ class DbProd {
     db.delete("prod", where: "name = ?", whereArgs: [name]);
   }
 
+//prod selected
+  void deleteSelected() async {
+    final Database db = await database;
+    db.delete("prod", where: "isSelected = ?", whereArgs: [1]);
+  }
+
 //AfFiche les produits
   Future<List<Prod>> prods() async {
     final Database db = await database;

@@ -8,6 +8,8 @@ import '../ProdAdd.dart';
 
 // couleur perso
 const d_green = Color.fromARGB(255, 73, 137, 129);
+int isselected = 0;
+bool supp = false;
 
 class ProdViewDB extends StatelessWidget {
   @override
@@ -95,11 +97,16 @@ class ProdViews extends StatelessWidget {
                         //lors du clique sur un item
                         onTap: () {
                           if (prods[index].isSelected == false) {
+                            isselected += 1;
                             DbProd.instance.updateRecipe(Prod(prods[index].name,
                                 prods[index].description, true));
                           } else {
+                            isselected -= 1;
                             DbProd.instance.updateRecipe(Prod(prods[index].name,
                                 prods[index].description, false));
+                          }
+                          if (isselected > 0) {
+                            supp = true;
                           }
 
                           Navigator.pushAndRemoveUntil(
@@ -119,7 +126,33 @@ class ProdViews extends StatelessWidget {
                   );
                 }
               }),
-            ))
+            )),
+            FloatingActionButton(
+              onPressed: supp
+                  ? () {
+                      DbProd.instance.deleteSelected();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ProdViewDB()), // this mainpage is your page to refresh.
+                        (Route<dynamic> route) => false,
+                      );
+                    }
+                  : () {
+                      Dialog(
+                        child: Text(
+                            "selectionner un ou plusieur éléments à supprimer"),
+                      );
+                    },
+              backgroundColor: Colors.white,
+              child: supp
+                  ? Icon(
+                      Icons.delete_forever,
+                      color: Colors.red,
+                    )
+                  : Icon(Icons.delete_forever_outlined, color: Colors.grey),
+            )
           ],
         ),
       ),
