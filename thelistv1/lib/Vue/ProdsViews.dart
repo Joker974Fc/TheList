@@ -135,39 +135,45 @@ class _ListViewDbState extends State<ListViewDb> {
                 }
               }),
             )),
-            FloatingActionButton(
-              onPressed: supp
-                  ? () {
-                      setState(() {
-                        DbProd.instance.deleteSelected();
-                        isselected = 0;
-                      });
-                    }
-                  : () {
-                      setState(() {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return const Expanded(
-                              child: AlertDialog(
-                                title: Icon(Icons.delete_forever),
-                                content: Text(
-                                    'Sélectionnez un ou plusieurs élément à supprimer !'),
-                                actions: [],
-                              ),
-                            );
+            Visibility(
+                visible: supp,
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: FloatingActionButton(
+                    onPressed: supp
+                        ? () {
+                            setState(() {
+                              DbProd.instance.deleteSelected();
+                              isselected = 0;
+                            });
+                          }
+                        : () {
+                            setState(() {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return const Expanded(
+                                    child: AlertDialog(
+                                      title: Icon(Icons.delete_forever),
+                                      content: Text(
+                                          'Sélectionnez un ou plusieurs élément à supprimer !'),
+                                      actions: [],
+                                    ),
+                                  );
+                                },
+                              );
+                            });
                           },
-                        );
-                      });
-                    },
-              backgroundColor: Colors.white,
-              child: supp
-                  ? Icon(
-                      Icons.delete_forever,
-                      color: Colors.red,
-                    )
-                  : Icon(Icons.delete_forever_outlined, color: Colors.grey),
-            )
+                    backgroundColor: Colors.white,
+                    child: supp
+                        ? Icon(
+                            Icons.delete_forever,
+                            color: Colors.red,
+                          )
+                        : Icon(Icons.delete_forever_outlined,
+                            color: Colors.grey),
+                  ),
+                ))
           ],
         ),
       ),
