@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:thelistv1/FrigPage.dart';
 import 'package:thelistv1/PharmaPage.dart';
-import 'package:thelistv1/Vue/ProdViewDb.dart';
+import 'package:thelistv1/Vue/ProdsViews.dart';
 
 import 'Vue/MedicViewDb.dart';
 
@@ -82,7 +82,7 @@ class CentralSection extends StatelessWidget {
         child: ElevatedButton.icon(
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return ProdViewDB();
+              return ProdsViewsDB();
             }));
             print("La gagne à ou la !");
           },

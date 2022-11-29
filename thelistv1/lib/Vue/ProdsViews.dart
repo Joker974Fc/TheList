@@ -1,22 +1,22 @@
-import 'package:flutter/cupertino.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:thelistv1/Model/Prod.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../Acc.dart';
 import '../DB/ProdDb.dart';
+import '../Model/Prod.dart';
 import '../ProdAdd.dart';
 
 // couleur perso
 const d_green = Color.fromARGB(255, 73, 137, 129);
-int isselected = 0;
-bool supp = false;
 
-class ProdViewDB extends StatelessWidget {
+class ProdsViewsDB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(),
-      body: ProdViews(),
+      body: ListViewDb(),
       bottomNavigationBar: BottomNavBarSection(),
     );
   }
@@ -50,10 +50,16 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-//listview
-class ProdViews extends StatelessWidget {
-  //Produits
+class ListViewDb extends StatefulWidget {
+  const ListViewDb({super.key});
 
+  @override
+  State<ListViewDb> createState() => _ListViewDbState();
+}
+
+class _ListViewDbState extends State<ListViewDb> {
+  int isselected = 0;
+  bool supp = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -95,27 +101,29 @@ class ProdViews extends StatelessWidget {
                                 color: Colors.grey,
                               ),
                         //lors du clique sur un item
-                        onTap: () {
-                          if (prods[index].isSelected == false) {
-                            isselected += 1;
-                            DbProd.instance.updateRecipe(Prod(prods[index].name,
-                                prods[index].description, true));
-                          } else {
-                            isselected -= 1;
-                            DbProd.instance.updateRecipe(Prod(prods[index].name,
-                                prods[index].description, false));
-                          }
-                          if (isselected > 0) {
-                            supp = true;
-                          }
 
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ProdViewDB()), // this mainpage is your page to refresh.
-                            (Route<dynamic> route) => false,
-                          );
+                        onTap: () {
+                          setState(() {
+                            if (prods[index].isSelected == false) {
+                              isselected += 1;
+                              DbProd.instance.updateRecipe(Prod(
+                                  prods[index].name,
+                                  prods[index].description,
+                                  true));
+                            } else {
+                              isselected -= 1;
+                              DbProd.instance.updateRecipe(Prod(
+                                  prods[index].name,
+                                  prods[index].description,
+                                  false));
+                            }
+                            print(isselected);
+                            if (isselected > 0) {
+                              supp = true;
+                            } else if (isselected <= 0) {
+                              supp = false;
+                            }
+                          });
                         },
                       ));
                     }),
@@ -130,20 +138,27 @@ class ProdViews extends StatelessWidget {
             FloatingActionButton(
               onPressed: supp
                   ? () {
-                      DbProd.instance.deleteSelected();
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ProdViewDB()), // this mainpage is your page to refresh.
-                        (Route<dynamic> route) => false,
-                      );
+                      setState(() {
+                        DbProd.instance.deleteSelected();
+                        isselected = 0;
+                      });
                     }
                   : () {
-                      Dialog(
-                        child: Text(
-                            "selectionner un ou plusieur éléments à supprimer"),
-                      );
+                      setState(() {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const Expanded(
+                              child: AlertDialog(
+                                title: Icon(Icons.delete_forever),
+                                content: Text(
+                                    'Sélectionnez un ou plusieurs élément à supprimer !'),
+                                actions: [],
+                              ),
+                            );
+                          },
+                        );
+                      });
                     },
               backgroundColor: Colors.white,
               child: supp

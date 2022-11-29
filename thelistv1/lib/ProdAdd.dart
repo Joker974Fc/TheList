@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:thelistv1/FrigPage.dart';
 import 'package:thelistv1/Model/Prod.dart';
 import 'package:thelistv1/DB/ProdDb.dart';
-import 'package:thelistv1/Vue/ProdViewDb.dart';
+import 'package:thelistv1/Vue/ProdsViews.dart';
 
 const d_green = Color.fromARGB(255, 73, 137, 129);
 
@@ -101,7 +101,7 @@ class CentralSection extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    ProdViewDB()), // this mainpage is your page to refresh.
+                    ProdsViewsDB()), // this mainpage is your page to refresh.
             (Route<dynamic> route) => false,
           );
         },

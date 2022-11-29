@@ -4,7 +4,6 @@ import 'package:thelistv1/FrigPage.dart';
 import 'package:thelistv1/Model/Prod.dart';
 import 'package:thelistv1/DB/ProdDb.dart';
 import 'package:thelistv1/Vue/MedicViewDb.dart';
-import 'package:thelistv1/Vue/ProdViewDb.dart';
 
 import 'DB/MedicDb.dart';
 import 'Model/Medic.dart';
