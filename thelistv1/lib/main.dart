@@ -1,10 +1,9 @@
 //import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 import 'package:thelistv1/Acc.dart';
-import 'package:thelistv1/FrigPage.dart';
-import 'package:thelistv1/PharmaPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,4 +19,7 @@ class MyApp extends StatelessWidget {
       home: Acc(),
     );
   }
+
+  //gestion des notifications?
+
 }
