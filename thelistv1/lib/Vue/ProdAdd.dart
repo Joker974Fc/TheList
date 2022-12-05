@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:thelistv1/FrigPage.dart';
 import 'package:thelistv1/Model/Prod.dart';
 import 'package:thelistv1/DB/ProdDb.dart';
-import 'package:thelistv1/Vue/MedicViewDb.dart';
-
-import 'DB/MedicDb.dart';
-import 'Model/Medic.dart';
+import 'package:thelistv1/Vue/Acc.dart';
+import 'package:thelistv1/Vue/ProdsViews.dart';
 
 const d_green = Color.fromARGB(255, 73, 137, 129);
 
-class MedicAdd extends StatelessWidget {
+class ProdAdd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,14 +43,14 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leading: IconButton(
         icon: Icon(
-          Icons.health_and_safety,
+          Icons.restaurant_menu,
           color: Colors.grey[800],
           size: 20,
         ),
         onPressed: null,
       ),
       title: Text(
-        'Ajout d\'un Medicament',
+        'Ajout d\'un produit',
         style: GoogleFonts.nunito(
           color: Colors.black,
           fontSize: 22,
@@ -76,7 +73,7 @@ class CentralSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
       SizedBox(height: 50),
-      Text("Nom du Medicament :"),
+      Text("Nom du Produit :"),
       TextField(
         controller: _controller1,
         decoration: InputDecoration(
@@ -97,21 +94,21 @@ class CentralSection extends StatelessWidget {
       ElevatedButton.icon(
         onPressed: () {
           print(_controller1.text);
-          MedicDb.instance
-              .insertRecipe(Medic(_controller1.text, _controller2.text, false));
+          DbProd.instance
+              .insertRecipe(Prod(_controller1.text, _controller2.text, false));
           //refresh
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    MedicViewDb()), // this mainpage is your page to refresh.
+                    ProdsViewsDB()), // this mainpage is your page to refresh.
             (Route<dynamic> route) => false,
           );
         },
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(Colors.blue)),
         icon: Icon(Icons.add), //icon data for elevated button
-        label: Text("Ajouter le Medicament"),
+        label: Text("Ajouter le produit"),
         //label text
       ),
     ]);
@@ -133,9 +130,15 @@ class BottomNavBarSection extends StatelessWidget {
         switch (index) {
           case 0:
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return MedicViewDb();
+              return ProdsViewsDB();
             }));
             break;
+          case 1:
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return Acc();
+            }));
+            break;
+
           default:
         }
       },
@@ -149,17 +152,10 @@ class BottomNavBarSection extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.favorite_outline_rounded,
+            Icons.home,
             color: d_green,
           ),
           label: 'Fav',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.person,
-            color: d_green,
-          ),
-          label: 'Profile',
         ),
       ],
     );

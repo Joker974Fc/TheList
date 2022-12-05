@@ -60,17 +60,17 @@ class MedicDb {
       return Medic.fromMap(maps[i]);
     });
 
-    if (medics.isEmpty) {
+    /*if (medics.isEmpty) {
       for (Medic medic in defaultMedics) {
         insertRecipe(medic);
       }
       medics = defaultMedics;
-    }
+    }*/
 
     return medics;
   }
 
-  final List<Medic> defaultMedics = [
+  /*final List<Medic> defaultMedics = [
     Medic("Dafalgant", "Périme le 15/12/22", false)
-  ];
+  ];*/
 }

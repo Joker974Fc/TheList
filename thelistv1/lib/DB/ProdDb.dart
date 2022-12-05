@@ -72,16 +72,16 @@ class DbProd {
       return Prod.fromMap(maps[i]);
     });
 
-    if (prods.isEmpty) {
+    /*if (prods.isEmpty) {
       for (Prod prod in defaultProds) {
         insertRecipe(prod);
       }
       prods = defaultProds;
-    }
+    }*/
 
     return prods;
   }
 
-//liste defaut
-  final List<Prod> defaultProds = [Prod("Lait", "Périme le 15/12/22", false)];
+/*liste defaut
+  final List<Prod> defaultProds = [Prod("Lait", "Périme le 15/12/22", false)];*/
 }

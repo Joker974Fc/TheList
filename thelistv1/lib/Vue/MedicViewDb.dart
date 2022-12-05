@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:thelistv1/DB/MedicDb.dart';
 
-import '../Acc.dart';
-import '../MedicAdd.dart';
+import 'Acc.dart';
+import 'MedicAdd.dart';
 import '../Model/Medic.dart';
 
 const d_green = Color.fromARGB(255, 73, 137, 129);
@@ -168,13 +168,6 @@ class BottomNavBarSection extends StatelessWidget {
             color: d_green,
           ),
           label: 'Ajouter',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.person,
-            color: d_green,
-          ),
-          label: 'Profile',
         ),
       ],
     );

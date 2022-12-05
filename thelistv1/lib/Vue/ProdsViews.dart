@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../Acc.dart';
+import 'Acc.dart';
 import '../DB/ProdDb.dart';
 import '../Model/Prod.dart';
-import '../ProdAdd.dart';
+import 'ProdAdd.dart';
 
 // couleur perso
 const d_green = Color.fromARGB(255, 73, 137, 129);
@@ -222,13 +222,6 @@ class BottomNavBarSection extends StatelessWidget {
             color: d_green,
           ),
           label: 'Ajouter',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.person,
-            color: d_green,
-          ),
-          label: 'Profile',
         ),
       ],
     );
