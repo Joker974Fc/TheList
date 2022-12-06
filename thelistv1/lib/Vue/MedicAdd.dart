@@ -43,6 +43,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(50),
+              bottomLeft: Radius.circular(50))),
       leading: IconButton(
         icon: Icon(
           Icons.health_and_safety,
