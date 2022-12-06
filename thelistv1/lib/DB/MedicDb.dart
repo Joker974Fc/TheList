@@ -50,6 +50,12 @@ class MedicDb {
     db2.delete("medic", where: "name = ?", whereArgs: [name]);
   }
 
+  //prod selected
+  void deleteSelected() async {
+    final Database db = await database;
+    db.delete("medic", where: "isSelected = ?", whereArgs: [1]);
+  }
+
   //Affichaage des
   Future<List<Medic>> medics() async {
     final Database db = await database;

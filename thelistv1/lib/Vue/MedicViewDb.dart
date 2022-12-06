@@ -14,7 +14,7 @@ class MedicViewDb extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(),
-      body: MedicViews(),
+      body: MedicsView(),
       bottomNavigationBar: BottomNavBarSection(),
     );
   }
@@ -51,9 +51,17 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-class MedicViews extends StatelessWidget {
-  //Produits
+//section liste Db
+class MedicsView extends StatefulWidget {
+  const MedicsView({super.key});
 
+  @override
+  State<MedicsView> createState() => _MedicsViewState();
+}
+
+class _MedicsViewState extends State<MedicsView> {
+  int isselected = 0;
+  bool supp = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -69,12 +77,57 @@ class MedicViews extends StatelessWidget {
                   return ListView.builder(
                     itemCount: medics?.length,
                     itemBuilder: ((context, index) {
-                      return MedicItem(
-                        medics![index].name,
-                        medics[index].description,
-                        medics[index].isSelected,
-                        index,
-                      );
+                      return Card(
+                          child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: Colors.blue,
+                          child: Icon(
+                            Icons.restaurant_menu,
+                            color: Colors.white,
+                          ),
+                        ),
+                        title: Text(
+                          medics![index].name,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        subtitle: Text(medics[index].description),
+                        trailing: medics[index].isSelected
+                            ? Icon(
+                                Icons.check_circle,
+                                color: Colors.green[700],
+                              )
+                            : Icon(
+                                Icons.check_circle_outline,
+                                color: Colors.grey,
+                              ),
+                        //lors du clique sur un item
+
+                        onTap: () {
+                          setState(() {
+                            if (medics[index].isSelected == false) {
+                              isselected += 1;
+                              MedicDb.instance.updateRecipe(Medic(
+                                  medics[index].name,
+                                  medics[index].description,
+                                  true));
+                            } else {
+                              isselected -= 1;
+                              MedicDb.instance.updateRecipe(Medic(
+                                  medics[index].name,
+                                  medics[index].description,
+                                  false));
+                            }
+                            print(isselected);
+                            if (isselected > 0) {
+                              supp = true;
+                            } else if (isselected <= 0) {
+                              supp = false;
+                            }
+                          });
+                        },
+                      ));
                     }),
                   );
                 } else {
@@ -83,52 +136,51 @@ class MedicViews extends StatelessWidget {
                   );
                 }
               }),
-            ))
+            )),
+            Visibility(
+                visible: supp,
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: FloatingActionButton(
+                    onPressed: supp
+                        ? () {
+                            setState(() {
+                              MedicDb.instance.deleteSelected();
+                              isselected = 0;
+                            });
+                          }
+                        : () {
+                            setState(() {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return const Expanded(
+                                    child: AlertDialog(
+                                      title: Icon(Icons.delete_forever),
+                                      content: Text(
+                                          'Sélectionnez un ou plusieurs élément à supprimer !'),
+                                      actions: [],
+                                    ),
+                                  );
+                                },
+                              );
+                            });
+                          },
+                    backgroundColor: Colors.white,
+                    child: supp
+                        ? Icon(
+                            Icons.delete_forever,
+                            color: Colors.red,
+                          )
+                        : Icon(Icons.delete_forever_outlined,
+                            color: Colors.grey),
+                  ),
+                ))
           ],
         ),
       ),
     );
   }
-}
-
-Widget MedicItem(String name, String description, bool isSelect, int ind) {
-  return ListTile(
-    leading: CircleAvatar(
-      backgroundColor: Colors.blue,
-      child: Icon(
-        Icons.restaurant_menu,
-        color: Colors.white,
-      ),
-    ),
-    title: Text(
-      name,
-      style: TextStyle(
-        fontWeight: FontWeight.w500,
-      ),
-    ),
-    subtitle: Text(description),
-    trailing: isSelect
-        ? Icon(
-            Icons.check_circle,
-            color: Colors.green[700],
-          )
-        : Icon(
-            Icons.check_circle_outline,
-            color: Colors.grey,
-          ),
-    /*onTap: () {
-        setState(() {
-          produits[index].isSelect = ! produits[index].isSelect;
-          if ( produits[index].isSelect == true) {
-            selected produits.add( produitsModel(name, description, true));
-          } else if ( produits[index].isSelected == false) {
-            selected produits
-                .removeWhere((element) => element.name ==  produits[index].name);
-          }
-        });
-
-  }*/
-  );
 }
 
 // banderole du bas
