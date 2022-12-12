@@ -6,6 +6,7 @@ import 'package:thelistv1/Vue/MedicViewDb.dart';
 
 import '../DB/MedicDb.dart';
 import '../Model/Medic.dart';
+import 'Acc.dart';
 
 const d_green = Color.fromARGB(255, 73, 137, 129);
 
@@ -139,6 +140,12 @@ class BottomNavBarSection extends StatelessWidget {
               return MedicViewDb();
             }));
             break;
+          case 1:
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return Acc();
+            }));
+            break;
+
           default:
         }
       },
@@ -152,17 +159,10 @@ class BottomNavBarSection extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.favorite_outline_rounded,
+            Icons.home,
             color: d_green,
           ),
-          label: 'Fav',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.person,
-            color: d_green,
-          ),
-          label: 'Profile',
+          label: 'Home',
         ),
       ],
     );

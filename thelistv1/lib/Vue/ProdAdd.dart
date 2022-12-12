@@ -4,6 +4,7 @@ import 'package:thelistv1/Model/Prod.dart';
 import 'package:thelistv1/DB/ProdDb.dart';
 import 'package:thelistv1/Vue/Acc.dart';
 import 'package:thelistv1/Vue/ProdsViews.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 const d_green = Color.fromARGB(255, 73, 137, 129);
 
@@ -72,6 +73,7 @@ class CentralSection extends StatelessWidget {
   //save textfield text
   TextEditingController _controller1 = TextEditingController();
   TextEditingController _controller2 = TextEditingController();
+  DateTime datep = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -87,14 +89,41 @@ class CentralSection extends StatelessWidget {
       ),
       SizedBox(height: 25),
       //descr
-      Text("Date de Péremption :"),
+      Text("Description :"),
       TextField(
           controller: _controller2,
+          minLines: 2,
+          maxLines: 5,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            labelText: 'JJ/MM/AAAA',
+            labelText: '...',
           )),
       SizedBox(height: 25),
+      //testedate
+      TextButton(
+          onPressed: () {
+            DatePicker.showDatePicker(
+              context,
+              showTitleActions: true,
+              minTime: DateTime.now(),
+              maxTime: DateTime(2030, 12, 31),
+              onChanged: (date) {
+                print('change $date');
+              },
+              onConfirm: (date) {
+                datep = date;
+                print(datep);
+              },
+              currentTime: DateTime.now(),
+              locale: LocaleType.fr,
+            );
+          },
+          child: Text(
+            'Date de péremption',
+            style: TextStyle(color: Colors.black),
+          )),
+      SizedBox(height: 25),
+      //valide
       ElevatedButton.icon(
         onPressed: () {
           print(_controller1.text);
@@ -159,7 +188,7 @@ class BottomNavBarSection extends StatelessWidget {
             Icons.home,
             color: d_green,
           ),
-          label: 'Fav',
+          label: 'Home',
         ),
       ],
     );
