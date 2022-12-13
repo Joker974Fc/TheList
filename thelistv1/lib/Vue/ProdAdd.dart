@@ -77,74 +77,76 @@ class CentralSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      SizedBox(height: 50),
-      Text("Nom du Produit :"),
-      TextField(
-        controller: _controller1,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: 'Nom',
-        ),
-      ),
-      SizedBox(height: 25),
-      //descr
-      Text("Description :"),
-      TextField(
-          controller: _controller2,
-          minLines: 2,
-          maxLines: 5,
+    return Center(
+      child: Column(children: <Widget>[
+        SizedBox(height: 50),
+        Text("Nom du Produit :"),
+        TextField(
+          controller: _controller1,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            labelText: '...',
-          )),
-      SizedBox(height: 25),
-      //testedate
-      TextButton(
+            labelText: 'Nom',
+          ),
+        ),
+        SizedBox(height: 25),
+        //descr
+        Text("Description :"),
+        TextField(
+            controller: _controller2,
+            minLines: 2,
+            maxLines: 5,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: '...',
+            )),
+        SizedBox(height: 25),
+        //testedate
+        TextButton(
+            onPressed: () {
+              DatePicker.showDatePicker(
+                context,
+                showTitleActions: true,
+                minTime: DateTime.now(),
+                maxTime: DateTime(2030, 12, 31),
+                onChanged: (date) {
+                  print('change $date');
+                },
+                onConfirm: (date) {
+                  datep = date;
+                  print(datep);
+                },
+                currentTime: DateTime.now(),
+                locale: LocaleType.fr,
+              );
+            },
+            child: Text(
+              'Date de péremption',
+              style: TextStyle(color: Colors.black),
+            )),
+        SizedBox(height: 25),
+        //valide
+        ElevatedButton.icon(
           onPressed: () {
-            DatePicker.showDatePicker(
+            print(_controller1.text);
+            DbProd.instance.insertRecipe(
+                Prod(_controller1.text, _controller2.text, false));
+            //refresh
+            Navigator.pushAndRemoveUntil(
               context,
-              showTitleActions: true,
-              minTime: DateTime.now(),
-              maxTime: DateTime(2030, 12, 31),
-              onChanged: (date) {
-                print('change $date');
-              },
-              onConfirm: (date) {
-                datep = date;
-                print(datep);
-              },
-              currentTime: DateTime.now(),
-              locale: LocaleType.fr,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      ProdsViewsDB()), // this mainpage is your page to refresh.
+              (Route<dynamic> route) => false,
             );
           },
-          child: Text(
-            'Date de péremption',
-            style: TextStyle(color: Colors.black),
-          )),
-      SizedBox(height: 25),
-      //valide
-      ElevatedButton.icon(
-        onPressed: () {
-          print(_controller1.text);
-          DbProd.instance
-              .insertRecipe(Prod(_controller1.text, _controller2.text, false));
-          //refresh
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    ProdsViewsDB()), // this mainpage is your page to refresh.
-            (Route<dynamic> route) => false,
-          );
-        },
-        style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.blue)),
-        icon: Icon(Icons.add), //icon data for elevated button
-        label: Text("Ajouter le produit"),
-        //label text
-      ),
-    ]);
+          style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.blue)),
+          icon: Icon(Icons.add), //icon data for elevated button
+          label: Text("Ajouter le produit"),
+          //label text
+        ),
+      ]),
+    );
   }
 }
 

@@ -142,39 +142,18 @@ class _MedicsViewState extends State<MedicsView> {
                 child: Align(
                   alignment: Alignment.bottomRight,
                   child: FloatingActionButton(
-                    onPressed: supp
-                        ? () {
-                            setState(() {
-                              MedicDb.instance.deleteSelected();
-                              isselected = 0;
-                            });
-                          }
-                        : () {
-                            setState(() {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return const Expanded(
-                                    child: AlertDialog(
-                                      title: Icon(Icons.delete_forever),
-                                      content: Text(
-                                          'Sélectionnez un ou plusieurs élément à supprimer !'),
-                                      actions: [],
-                                    ),
-                                  );
-                                },
-                              );
-                            });
-                          },
-                    backgroundColor: Colors.white,
-                    child: supp
-                        ? Icon(
-                            Icons.delete_forever,
-                            color: Colors.red,
-                          )
-                        : Icon(Icons.delete_forever_outlined,
-                            color: Colors.grey),
-                  ),
+                      onPressed: () {
+                        setState(() {
+                          MedicDb.instance.deleteSelected();
+                          isselected = 0;
+                          supp = false;
+                        });
+                      },
+                      backgroundColor: Colors.white,
+                      child: Icon(
+                        Icons.delete_forever,
+                        color: Colors.red,
+                      )),
                 ))
           ],
         ),
@@ -213,7 +192,7 @@ class BottomNavBarSection extends StatelessWidget {
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.arrow_back,
+            Icons.home,
             color: d_green,
           ),
           label: 'Home',
