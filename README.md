@@ -1,5 +1,5 @@
 # TheList
-Projet réaliser sous Flutter.
+Projet réalisé sous Flutter.
 
-Application permettant l'enregistrement de produit et médicament ainsi que de la date de péremption afin de recevoir une alerte.
+Application permettant l'enregistrement de ses produits et médicaments afin d'avoir un suivi.
 
